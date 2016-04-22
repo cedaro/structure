@@ -58,7 +58,7 @@ abstract class Structure_AbstractPlugin {
 	protected $url;
 
 	/**
-	 * Retrieve the absolute path for the main plugin file.
+	 * Retrieve the relative path from the main plugin directory.
 	 *
 	 * @since 1.0.0
 	 *
