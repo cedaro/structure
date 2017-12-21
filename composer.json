@@ -1,0 +1,26 @@
+{
+  "name": "cedaro/structure",
+  "description": "Add some structure to your WordPress plugins.",
+  "keywords": [
+    "wordpress"
+  ],
+  "homepage": "https://www.cedaro.com/",
+  "license": "GPL-2.0+",
+  "authors": [
+    {
+      "name": "Cedaro",
+      "email": "support@cedaro.com",
+      "homepage": "https://www.cedaro.com/"
+    }
+  ],
+  "type": "wordpress-plugin",
+  "require": {
+    "composer/installers": "^1.0",
+    "cedaro/wp-plugin": "^0.3.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Structure\\": "php/"
+    }
+  }
+}

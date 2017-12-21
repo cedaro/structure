@@ -5,9 +5,9 @@
  * Description: An example plugin demonstrating a lightweight method for adding a bit of structure to plugins.
  * Version:     1.0.0
  * Author:      Cedaro
- * Author URI:  http://www.cedaro.com/
+ * Author URI:  https://www.cedaro.com/
  * License:     GPL-2.0+
- * License URI: http://www.gnu.org/licenses/gpl-2.0.html
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: structure
  * Domain Path: /languages
  */
@@ -17,56 +17,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/**
- * Autoloader callback.
- *
- * Converts a class name to a file path and requires it if it exists.
- *
- * @since 1.0.0
- *
- * @param string $class Class name.
- */
-function structure_autoloader( $class ) {
-	if ( 0 !== strpos( $class, 'Structure_' ) ) {
-		return;
-	}
-
-	$file  = dirname( __FILE__ ) . '/classes/';
-	$file .= str_replace( array( 'Structure_', '_' ), array( '', '/' ), $class );
-	$file .= '.php';
-
-	if ( file_exists( $file ) ) {
-		require_once( $file );
-	}
-}
-spl_autoload_register( 'structure_autoloader' );
+define( 'STRUCTURE_VERSION', '0.1.0' );
 
 /**
- * Retrieve the main plugin instance.
- *
- * @since 1.0.0
- *
- * @return Structure_Plugin
+ * Load the compatibility checker.
  */
-function structure() {
-	static $instance;
+require_once( dirname( __FILE__ ) . '/includes/compatibility.php' );
 
-	if ( null === $instance ) {
-		$instance = new Structure_Plugin();
-	}
-
-	return $instance;
+/**
+ * Load the plugin or display a notice about requirements.
+ */
+if ( version_compare( phpversion(), Structure_Compatibility::MINIMUM_PHP_VERSION, '<' ) ) {
+	$action = is_multisite() ? 'network_admin_notices' : 'admin_notices';
+	add_action( $action, array( 'Structure_Compatibility', 'display_php_version_notice' ) );
+} elseif( version_compare( $GLOBALS['wp_version'], Structure_Compatibility::MINIMUM_WORDPRESS_VERSION, '<' ) ) {
+	$action = is_multisite() ? 'network_admin_notices' : 'admin_notices';
+	add_action( $action, array( 'Structure_Compatibility', 'display_wordpress_version_notice' ) );
+} else {
+	require( dirname( __FILE__ ) . '/bootstrap.php' );
 }
-
-// Set up the main plugin instance.
-structure()->set_basename( plugin_basename( __FILE__ ) )
-           ->set_directory( plugin_dir_path( __FILE__ ) )
-           ->set_file( __FILE__ )
-           ->set_slug( 'structure' )
-           ->set_url( plugin_dir_url( __FILE__ ) );
-
-// Register hook providers.
-structure()->register_hooks( new Structure_Provider_I18n() );
-
-// Load the plugin.
-add_action( 'plugins_loaded', array( structure(), 'load_plugin' ) );
