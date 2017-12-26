@@ -37,6 +37,3 @@ $structure
 
 // Register hook providers.
 $structure->register_hooks( new I18n() );
-
-// Load the plugin.
-add_action( 'plugins_loaded', array( $structure, 'load' ) );
