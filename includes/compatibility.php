@@ -1,6 +1,6 @@
 <?php
 /**
- * Environment ompatibility checks and notices.
+ * Environment compatibility checks and notices.
  *
  * @package   Structure
  * @copyright Copyright (c) 2017 Cedaro, LLC
