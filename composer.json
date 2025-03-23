@@ -5,7 +5,7 @@
     "wordpress"
   ],
   "homepage": "https://www.cedaro.com/",
-  "license": "GPL-2.0+",
+  "license": "MIT",
   "authors": [
     {
       "name": "Cedaro",
@@ -14,13 +14,51 @@
     }
   ],
   "type": "wordpress-plugin",
+  "config": {
+    "allow-plugins": {
+      "composer/installers": true
+    }
+  },
   "require": {
-    "composer/installers": "^1.0",
-    "cedaro/wp-plugin": "^0.3.0"
+    "cedaro/wp-plugin": "dev-refactor",
+    "composer/installers": "^2.0",
+    "pimple/pimple": "^3.5"
   },
   "autoload": {
     "psr-4": {
-      "Structure\\": "php/"
+      "Structure\\": "src/"
+    },
+    "classmap": [
+      "library"
+    ],
+		"files": [
+			"src/global.php"
+		]
+  },
+  "scripts": {
+    "prefix-namespaces": [
+        "sh -c 'test -f ./bin/strauss.phar || curl -o bin/strauss.phar -L -C - https://github.com/BrianHenryIE/strauss/releases/latest/download/strauss.phar'",
+        "@php bin/strauss.phar",
+        "@composer dump-autoload"
+    ],
+    "post-install-cmd": [
+        "@prefix-namespaces"
+    ],
+    "post-update-cmd": [
+        "@prefix-namespaces"
+    ],
+    "post-autoload-dump": [
+        "@php bin/strauss.phar"
+    ]
+  },
+  "extra": {
+    "strauss": {
+        "target_directory": "library",
+        "namespace_prefix": "Structure\\",
+        "packages": [
+          "cedaro/wp-plugin",
+          "pimple/pimple"
+        ]
     }
   }
 }

@@ -3,14 +3,14 @@
  * Plugin service definitions.
  *
  * @package   Structure
- * @copyright Copyright (c) 2017 Cedaro, LLC
- * @license   GPL-2.0+
+ * @copyright Copyright (c) 2025 Cedaro, LLC
+ * @license   MIT
  */
 
 namespace Structure;
 
-use Pimple\Container;
-use Pimple\ServiceProviderInterface;
+use Structure\Pimple\Container;
+use Structure\Pimple\ServiceProviderInterface;
 
 /**
  * Plugin service provider class.
@@ -24,6 +24,6 @@ class ServiceProvider implements ServiceProviderInterface {
 	 * @param Container $container Container instance.
 	 */
 	public function register( Container $container ) {
-
+		// @todo Define services.
 	}
 }

@@ -1,3 +1,7 @@
-.DS_Store
+/bin/*
+!/bin/.gitkeep
 composer.lock
+.DS_Store
+/library/*
+!/library/.gitkeep
 vendor
