@@ -12,12 +12,12 @@ declare ( strict_types = 1 );
 namespace Structure;
 
 use Structure\Plugin\Provider\I18n;
-use Structure\Plugin\Plugin as BasePlugin;
+use Structure\Plugin\ContainerAwarePlugin;
 
 /**
  * Main plugin class.
  */
-class Plugin extends BasePlugin {
+class Plugin extends ContainerAwarePlugin {
 	/**
 	 * Compose the object graph.
 	 */
