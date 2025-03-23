@@ -14,9 +14,14 @@
     }
   ],
   "type": "wordpress-plugin",
+  "config": {
+    "allow-plugins": {
+      "composer/installers": true
+    }
+  },
   "require": {
-    "composer/installers": "^1.0",
-    "cedaro/wp-plugin": "^0.3.0"
+    "composer/installers": "^2.0",
+    "cedaro/wp-plugin": "^1.0"
   },
   "autoload": {
     "psr-4": {
